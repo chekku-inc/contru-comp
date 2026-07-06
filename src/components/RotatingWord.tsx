@@ -24,7 +24,7 @@ export default function RotatingWord({
   }, [words.length, interval]);
 
   return (
-    <span className="grid text-brand">
+    <span className="inline-grid text-brand">
       {words.map((w) => (
         <span
           key={w}
