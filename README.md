@@ -63,14 +63,13 @@ Tipografía: **Satoshi** (títulos en Bold, texto en Regular/Medium), autoalojad
 
 El sitio exporta estático (`output: "export"`) y trae el workflow `.github/workflows/deploy.yml`:
 
-1. Suba el repositorio a GitHub (rama `main`).
-2. En el repo: **Settings → Pages → Source: GitHub Actions**.
-3. Cada push a `main` compila y publica automáticamente. El `basePath` se calcula solo según el nombre del repo.
+1. En el repo: **Settings → Pages → Source: GitHub Actions**.
+2. En la misma página, **Custom domain: `construcomp.site`** (el archivo `public/CNAME` lo mantiene entre despliegues) y active **Enforce HTTPS** cuando el certificado esté listo.
+3. Cada push a `main` compila y publica automáticamente en https://construcomp.site.
 
-Antes o después de publicar:
+Después de publicar:
 
-1. Cambie `url` en `src/config/site.ts` por la URL real (la de Pages o su dominio propio).
-2. Verifique el sitio en [Google Search Console](https://search.google.com/search-console) y envíe el sitemap.
+1. Verifique el sitio en [Google Search Console](https://search.google.com/search-console) y envíe el sitemap.
 3. Cree el perfil de [Google Business Profile](https://business.google.com) con la misma dirección y teléfono — es lo que más pesa para búsquedas locales tipo "materiales de construcción El Progreso".
 
 > **Fotos**: por ahora las imágenes son *stock* de Unsplash (enlazadas desde su CDN). Reemplácelas por fotos reales del negocio cuando las tenga: edite las URLs en `src/config/catalog.ts`, `Hero.tsx` y `layout.tsx` (Open Graph), o vuelva a archivos locales en `public/images/`.

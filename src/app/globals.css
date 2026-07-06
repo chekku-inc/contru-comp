@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────
+   Sistema de marca — Complementos de Construcción
+   Derivado de la identidad real (fachada y artes):
+
+   brand     — naranja de marca (fachada, logo, CTA)
+   brand-600 — naranja oscuro (hover, estados activos)
+   brand-50  — tinte naranja suave (fondos de énfasis)
+   ink       — carbón del logo (texto, header, footer)
+   concrete  — gris claro de la fachada (fondo general)
+   paper     — blanco (tarjetas, artes de la marca)
+   rebar     — acero medio (texto secundario)
+   ──────────────────────────────────────────────── */
+@theme {
+  --color-brand: #f05a28;
+  --color-brand-600: #d8481a;
+  --color-brand-50: #fdeee7;
+  --color-ink: #333a40;
+  --color-ink-800: #3e464d;
+  --color-ink-700: #4a535b;
+  --color-concrete: #edece8;
+  --color-paper: #ffffff;
+  --color-rebar: #6b747b;
+  --color-line: #dddcd6;
+  --color-line-dark: #4a545c;
+
+  --font-display: var(--font-satoshi), Arial, sans-serif;
+  --font-body: var(--font-satoshi), Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-concrete);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: var(--color-paper);
+}
+
+/* Franja de marca — banda naranja sólida, como la fachada */
+.brand-strip {
+  background-color: var(--color-brand);
+}
+
+/* Duotono naranja — tratamiento fotográfico de los artes de la marca.
+   Aplicar al contenedor (position: relative) de una imagen. */
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-brand);
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Etiqueta de sección estilo hoja de pedido */
+.eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8125rem;
+  color: var(--color-brand);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* Tarjeta — borde fino y sombra suave */
+.card-pop {
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(32, 39, 43, 0.05);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-pop:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -12px rgba(32, 39, 43, 0.18);
+}
+
+/* Botones píldora */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.9rem 1.75rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(32, 39, 43, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-brand {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+.btn-brand:hover {
+  background: var(--color-brand-600);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid var(--color-ink);
+  color: var(--color-ink);
+}
+
+.btn-ghost:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+/* ────────────────────────────────────────────────
+   Movimiento
+   .hero-rise   — entrada escalonada del hero (al cargar)
+   .reveal      — revelado al hacer scroll (via IntersectionObserver)
+   .scroll-cue  — flecha de desplazamiento del hero
+   ──────────────────────────────────────────────── */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-rise {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.scroll-cue {
+  animation: cue 2.2s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sin JavaScript, el contenido debe verse igual */
+@media (scripting: none) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-rise,
+  .scroll-cue {
+    animation: none;
+  }
+}
+
+
+/* ────────────────────────────────────────────────
+   Animaciones adicionales
+   ──────────────────────────────────────────────── */
+
+/* Cinta de productos en movimiento continuo */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Flotación suave de los adornos del hero */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.floaty {
+  animation: floaty 5s ease-in-out infinite;
+}
+
+.floaty-late {
+  animation: floaty 6s ease-in-out 1.2s infinite;
+}
+
+/* Subrayado animado de la navegación */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  height: 2px;
+  width: 100%;
+  background: var(--color-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* La flecha de los botones se desliza al pasar el cursor */
+.btn svg {
+  transition: transform 0.2s ease;
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .floaty,
+  .floaty-late {
+    animation: none;
+  }
+}
