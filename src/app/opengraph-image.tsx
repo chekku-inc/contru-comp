@@ -4,6 +4,7 @@ import { ImageResponse } from "next/og";
 import { site } from "@/config/site";
 
 // Imagen Open Graph generada en tiempo de compilación (estática en el export)
+export const dynamic = "force-static";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = `${site.name} — materiales y servicios de construcción en ${site.address.city}, ${site.address.region}`;
