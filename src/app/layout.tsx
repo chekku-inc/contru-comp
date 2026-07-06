@@ -41,20 +41,13 @@ export const metadata: Metadata = {
     siteName: site.name,
     title,
     description: site.description,
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=70&h=630",
-        width: 1200,
-        height: 630,
-        alt: `Bodega de ${site.name}`,
-      },
-    ],
+    // La imagen (og:image y twitter:image) sale automáticamente de
+    // src/app/opengraph-image.png — reemplace ese archivo para cambiarla.
   },
   twitter: {
     card: "summary_large_image",
     title,
     description: site.description,
-    images: ["/images/og.jpg"],
   },
   robots: {
     index: true,
@@ -77,7 +70,7 @@ function JsonLd() {
     url: site.url,
     telephone: site.phone,
     email: site.email,
-    image: `${site.url}/images/og.jpg`,
+    image: `${site.url}/images/logo.png`,
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
